@@ -1,0 +1,20 @@
+{
+  "name": "velobike_helper_bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ki1it/velobike_helper_bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ki1it/velobike_helper_bot/issues"
+  },
+  "homepage": "https://github.com/ki1it/velobike_helper_bot#readme"
+}
