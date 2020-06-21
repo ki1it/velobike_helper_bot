@@ -1,6 +1,11 @@
 const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
-const Datastore = require('nedb'), db = new Datastore({filename: '~/db', autoload: true});
+
+
+const Datastore = require('nedb-promises'), users = new Datastore({filename: `${process.env.BOT_PATH}/users.db`, autoload: true});
+const data = new Datastore({filename: `${process.env.BOT_PATH}/data.db`, autoload: true});
+data.ensureIndex({ fieldName: 'Id', unique: true });
+require('./cron')
 
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
@@ -12,6 +17,14 @@ bot.onText(/\/echo (.+)/, function (msg, match) {
 });
 
 bot.onText(/\/list/, function onList(msg) {
+    bot.sendGame(msg.chat.id, gameName);
+});
+
+bot.onText(/\/add/, function onList(msg) {
+    bot.sendGame(msg.chat.id, gameName);
+});
+
+bot.onText(/\/delete/, function onList(msg) {
     bot.sendGame(msg.chat.id, gameName);
 });
 
