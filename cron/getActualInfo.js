@@ -1,6 +1,6 @@
 const axios = require('axios');
 require('dotenv').config();
-const Datastore = require('nedb-promises'), data = new Datastore(`${process.env.BOT_PATH}/data.db`);
+const Datastore = require('nedb-promises'), data = new Datastore(`${process.env.DB_PATH}/data.db`);
 
 
 async function getActualInfo() {
