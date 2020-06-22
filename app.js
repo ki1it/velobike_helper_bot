@@ -1,4 +1,3 @@
 require('dotenv').config();
-
-
-require('./cron')
+require('./cron');
+require('./bot');
