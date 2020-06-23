@@ -3,4 +3,9 @@ const users = new Datastore({filename: `${process.env.DB_PATH}/users.db`, autolo
 const data = new Datastore({filename: `${process.env.DB_PATH}/data.db`, autoload: true});
 data.ensureIndex({ fieldName: 'Id', unique: true });
 users.ensureIndex({fieldName: 'tgId', unique: true });
-data.persistence.stopAutocompaction(60000);
+// data.persistence.stopAutocompaction(60000);
+
+module.exports = {
+    data,
+    users,
+}
