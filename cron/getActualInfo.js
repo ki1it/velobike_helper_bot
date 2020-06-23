@@ -7,7 +7,7 @@ async function getActualInfo() {
     const info = await axios.get('https://velobike.ru/ajax/parkings');
     if( info.status === 200 ){
         await data.remove({}, { multi: true });
-        await data.insert(info.data.Items); 
+        await data.insert(info.data.Items);
     }
 }
 

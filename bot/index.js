@@ -4,11 +4,12 @@ const Stage = require('telegraf/stage');
 
 const {mainMenuScene} = require('./scenes/mainMenu.scene');
 const {listStationsScene} = require('./scenes/listStations.scene');
+const {addStationScene} = require('./scenes/addStation.scene');
 const {helpLocale} = require('./botConstants')
 
 const Datastore = require('nedb-promises'), users = new Datastore(`${process.env.DB_PATH}/users.db`);
 
-const stage = new Stage([mainMenuScene, listStationsScene], {default: 'mainMenu', tll: 1800})
+const stage = new Stage([mainMenuScene, listStationsScene, addStationScene], {default: 'mainMenu', tll: 1800})
 const bot = new Telegraf(process.env.BOT_TOKEN)
 console.log('Bot started')
 

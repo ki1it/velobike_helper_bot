@@ -18,8 +18,16 @@ const listLocale = {
     emptyList: 'У вас нет избранных станций '
 }
 
+const addLocale = {
+    add: 'Введите номер станции, которую хотите добавить',
+    added: 'Станция добавлена',
+    incorrect: 'Номер станции не распознана',
+    already: 'Такая станция уже есть'
+}
+
 module.exports = {
     mainMenuSceneLocale,
     helpLocale,
-    listLocale
+    listLocale,
+    addLocale
 };
