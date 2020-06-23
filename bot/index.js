@@ -18,7 +18,6 @@ bot.command('on', (ctx) => {users.update({tgId: ctx.chat.id},{active: true})})
 bot.command('off', (ctx) => {users.update({tgId: ctx.chat.id},{active: false})})
 bot.use(session())
 bot.use(async (ctx, next) => {
-    console.log(ctx.update.message.text);
     const user = await users.findOne({tgId: ctx.chat.id});
     if (!user) {await users.insert({tgId: ctx.chat.id, favouriteStations:[], active: false});}
     return next();
@@ -29,3 +28,8 @@ bot.command('add', (ctx) => ctx.scene.enter('addStation'))
 bot.command('delete', (ctx) => ctx.scene.enter('deleteStation'))
 bot.command('list', (ctx) => ctx.scene.enter('listStations'))
 bot.launch()
+
+module.exports = {
+    bot
+}
+
