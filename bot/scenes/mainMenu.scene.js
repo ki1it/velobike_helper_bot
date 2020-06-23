@@ -10,8 +10,8 @@ mainMenuScene.enter((ctx) => ctx.reply(mainMenuSceneLocale, Markup.inlineKeyboar
     Markup.callbackButton('Удалить станцию', 'list'),
     Markup.callbackButton('Включить мониторинг', 'on'),
     Markup.callbackButton('Выключить мониторинг', 'off')
-])))
-mainMenuScene.on('message', (ctx) => ctx.replyWithMarkdown('Send `hi`'))
+])));
+mainMenuScene.action('list', (ctx) => ctx.scene.enter('listStations'));
 
 module.exports = {
     mainMenuScene,

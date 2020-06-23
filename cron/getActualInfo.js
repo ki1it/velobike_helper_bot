@@ -5,8 +5,10 @@ const Datastore = require('nedb-promises'), data = new Datastore(`${process.env.
 
 async function getActualInfo() {
     const info = await axios.get('https://velobike.ru/ajax/parkings');
-    await data.remove({}, { multi: true });
-    await data.insert(info.data.Items);
+    if( info.status === 200 ){
+        await data.remove({}, { multi: true });
+        await data.insert(info.data.Items); 
+    }
 }
 
 module.exports = {

@@ -13,7 +13,13 @@ const helpLocale = {
         '/off \n',
 };
 
+const listLocale = {
+    list: 'Ваши избранные станции: ',
+    emptyList: 'У вас нет избранных станций '
+}
+
 module.exports = {
     mainMenuSceneLocale,
-    helpLocale
+    helpLocale,
+    listLocale
 };
