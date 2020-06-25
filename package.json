@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,9 +20,11 @@
   "homepage": "https://github.com/ki1it/velobike_helper_bot#readme",
   "dependencies": {
     "axios": "^0.19.2",
+    "cron": "^1.8.2",
     "dotenv": "^8.2.0",
+    "nedb": "^1.8.0",
+    "nedb-promise": "^2.0.1",
     "nedb-promises": "^4.0.3",
-    "node-telegram-bot-api": "^0.50.0",
-    "cron": "^1.8.2"
+    "telegraf": "^3.38.0"
   }
 }
