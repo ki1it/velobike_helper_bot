@@ -10,7 +10,7 @@ async function sendInfo() {
         let msg = '';
         for (let j =0; j < usersList[i].favouriteStations.length; j++) {
             const station = data.find(o => o.Id === usersList[i].favouriteStations[j]);
-            msg += `Ст ${station.Id}: ${station.FreePlaces}/${station.TotalPlaces}\n`
+            msg += `${station.Id}:св.${station.FreePlaces}/зан ${station.TotalPlaces-station.FreePlaces}\n`
         }
         bot.telegram.sendMessage(usersList[i].tgId, msg);
     }
