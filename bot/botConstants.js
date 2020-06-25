@@ -21,13 +21,21 @@ const listLocale = {
 const addLocale = {
     add: 'Введите номер станции, которую хотите добавить',
     added: 'Станция добавлена',
-    incorrect: 'Номер станции не распознана',
+    incorrect: 'Номер станции не распознан',
     already: 'Такая станция уже есть'
+}
+
+const deleteLocale = {
+    delete: 'Введите номер станции, которую хотите удалить',
+    deleted: 'Станция удалена',
+    incorrect: 'Номер станции не распознан',
+    already: 'Эта станция не в вашем избранном'
 }
 
 module.exports = {
     mainMenuSceneLocale,
     helpLocale,
     listLocale,
-    addLocale
+    addLocale,
+    deleteLocale
 };

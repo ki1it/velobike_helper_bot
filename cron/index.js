@@ -1,11 +1,9 @@
 const { CronJob } = require('cron');
 
-const {getActualInfo} = require("./getActualInfo");
 const {sendInfo} = require("./sendInfo");
 
 
 const jobs = [
-    ['Get actual info', '*/30 * * * * *', getActualInfo],
     ['Send to users', '*/35 * * * * *', sendInfo],
 ];
 
