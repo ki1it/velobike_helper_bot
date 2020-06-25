@@ -1,5 +1,5 @@
 const axios = require('axios');
-const {users} = require('../db');
+const {users, store} = require('../db');
 const {bot} = require('../bot');
 
 async function sendInfo() {
@@ -14,7 +14,7 @@ async function sendInfo() {
         }
         bot.telegram.sendMessage(usersList[i].tgId, msg);
     }
-    await users.persistence.compactDatafile()
+    store.persistence.compactDatafile()
 }
 
 sendInfo()

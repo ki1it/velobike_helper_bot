@@ -23,6 +23,7 @@
     "cron": "^1.8.2",
     "dotenv": "^8.2.0",
     "nedb": "^1.8.0",
+    "nedb-promise": "^2.0.1",
     "nedb-promises": "^4.0.3",
     "telegraf": "^3.38.0"
   }
