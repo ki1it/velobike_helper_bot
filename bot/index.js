@@ -16,7 +16,7 @@ console.log('Bot started')
 
 bot.command('help', (ctx) => ctx.reply(helpLocale.help))
 bot.command('on', (ctx) => {users.update({tgId: ctx.chat.id},{$set:{active: true}})})
-bot.command('off', (ctx) => {users.update({tgId: ctx.chat.id},{$set:{active: true}})})
+bot.command('off', (ctx) => {users.update({tgId: ctx.chat.id},{$set:{active: false}})})
 bot.use(session())
 bot.use(async (ctx, next) => {
     const user = await users.findOne({tgId: ctx.chat.id});
