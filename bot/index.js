@@ -5,17 +5,18 @@ const Stage = require('telegraf/stage');
 const {mainMenuScene} = require('./scenes/mainMenu.scene');
 const {listStationsScene} = require('./scenes/listStations.scene');
 const {addStationScene} = require('./scenes/addStation.scene');
+const {deleteStationScene} = require('./scenes/deleteStation.scene');
 const {helpLocale} = require('./botConstants')
 
-const Datastore = require('nedb-promises'), users = new Datastore(`${process.env.DB_PATH}/users.db`);
+const {users} = require('../db');
 
-const stage = new Stage([mainMenuScene, listStationsScene, addStationScene], {default: 'mainMenu', tll: 1800})
+const stage = new Stage([mainMenuScene, listStationsScene, addStationScene, deleteStationScene], {default: 'mainMenu', tll: 1800})
 const bot = new Telegraf(process.env.BOT_TOKEN)
 console.log('Bot started')
 
 bot.command('help', (ctx) => ctx.reply(helpLocale.help))
-bot.command('on', (ctx) => {users.update({tgId: ctx.chat.id},{active: true})})
-bot.command('off', (ctx) => {users.update({tgId: ctx.chat.id},{active: false})})
+bot.command('on', (ctx) => {users.update({tgId: ctx.chat.id},{$set:{active: true}})})
+bot.command('off', (ctx) => {users.update({tgId: ctx.chat.id},{$set:{active: true}})})
 bot.use(session())
 bot.use(async (ctx, next) => {
     const user = await users.findOne({tgId: ctx.chat.id});

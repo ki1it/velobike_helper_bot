@@ -4,7 +4,7 @@ const {sendInfo} = require("./sendInfo");
 
 
 const jobs = [
-    ['Send to users', '*/35 * * * * *', sendInfo],
+    ['Send to users', '*/30 * * * * *', sendInfo],
 ];
 
 function wrapJobHandler(name, handler) {
