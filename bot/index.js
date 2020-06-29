@@ -20,7 +20,7 @@ bot.command('off', (ctx) => {users.update({tgId: ctx.chat.id},{$set:{active: tru
 bot.use(session())
 bot.use(async (ctx, next) => {
     const user = await users.findOne({tgId: ctx.chat.id});
-    if (!user) {await users.insert({tgId: ctx.chat.id, favouriteStations:[], active: false});}
+    if (!user) {await users.insert({tgId: ctx.chat.id, favouriteStations:[], active: false, lastMsg: null});}
     return next();
 });
 bot.use(stage.middleware())

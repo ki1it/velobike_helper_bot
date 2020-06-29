@@ -12,7 +12,11 @@ async function sendInfo() {
             const station = data.find(o => o.Id === usersList[i].favouriteStations[j]);
             msg += `${station.Id}:св.${station.FreePlaces}/зан ${station.TotalPlaces-station.FreePlaces}\n`
         }
-        bot.telegram.sendMessage(usersList[i].tgId, msg);
+        const message = await bot.telegram.sendMessage(usersList[i].tgId, msg);
+        if(usersList[i].lastMsg){
+            bot.telegram.deleteMessage(message.chat.id, usersList[i].lastMsg);
+        }
+        await users.update({tgId: usersList[i].tgId}, {$set:{lastMsg: message.message_id}});
     }
     store.persistence.compactDatafile()
 }
