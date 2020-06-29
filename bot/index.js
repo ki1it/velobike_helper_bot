@@ -6,7 +6,7 @@ const {mainMenuScene} = require('./scenes/mainMenu.scene');
 const {listStationsScene} = require('./scenes/listStations.scene');
 const {addStationScene} = require('./scenes/addStation.scene');
 const {deleteStationScene} = require('./scenes/deleteStation.scene');
-const {helpLocale} = require('./botConstants')
+const {helpLocale, monitoringLocale} = require('./botConstants')
 
 const {users} = require('../db');
 
@@ -14,9 +14,20 @@ const stage = new Stage([mainMenuScene, listStationsScene, addStationScene, dele
 const bot = new Telegraf(process.env.BOT_TOKEN)
 console.log('Bot started')
 
+bot.context.store = {
+    monitorOn: async (ctx) => {
+        await users.update({tgId: ctx.chat.id},{$set:{active: true}});
+        await ctx.reply(monitoringLocale.on)
+    },
+    monitorOff: async (ctx) => {
+        await users.update({tgId: ctx.chat.id},{$set:{active: false}});
+        await ctx.reply(monitoringLocale.off)
+    },
+}
+
 bot.command('help', (ctx) => ctx.reply(helpLocale.help))
-bot.command('on', (ctx) => {users.update({tgId: ctx.chat.id},{$set:{active: true}})})
-bot.command('off', (ctx) => {users.update({tgId: ctx.chat.id},{$set:{active: true}})})
+bot.command('on', (ctx => ctx.store.monitorOn(ctx)))
+bot.command('off', (ctx => ctx.store.monitorOff(ctx)))
 bot.use(session())
 bot.use(async (ctx, next) => {
     const user = await users.findOne({tgId: ctx.chat.id});

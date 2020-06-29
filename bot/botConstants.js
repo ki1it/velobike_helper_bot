@@ -31,11 +31,16 @@ const deleteLocale = {
     incorrect: 'Номер станции не распознан',
     already: 'Эта станция не в вашем избранном'
 }
+const monitoringLocale = {
+    on: 'Мониторинг станций включен',
+    off: 'Мониторинг станций выключен',
+}
 
 module.exports = {
     mainMenuSceneLocale,
     helpLocale,
     listLocale,
     addLocale,
-    deleteLocale
+    deleteLocale,
+    monitoringLocale,
 };

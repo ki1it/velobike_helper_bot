@@ -10,11 +10,11 @@ async function sendInfo() {
         let msg = '';
         for (let j =0; j < usersList[i].favouriteStations.length; j++) {
             const station = data.find(o => o.Id === usersList[i].favouriteStations[j]);
-            msg += `${station.Id}:св.${station.FreePlaces}/зан ${station.TotalPlaces-station.FreePlaces}\n`
+            msg += `${station.Id}: св.${station.FreePlaces}/ зан ${station.TotalPlaces-station.FreePlaces}\n`
         }
         const message = await bot.telegram.sendMessage(usersList[i].tgId, msg);
         if(usersList[i].lastMsg){
-            bot.telegram.deleteMessage(message.chat.id, usersList[i].lastMsg);
+            await bot.telegram.deleteMessage(message.chat.id, usersList[i].lastMsg);
         }
         await users.update({tgId: usersList[i].tgId}, {$set:{lastMsg: message.message_id}});
     }
