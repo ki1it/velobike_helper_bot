@@ -15,13 +15,26 @@ const bot = new Telegraf(process.env.BOT_TOKEN)
 console.log('Bot started')
 
 bot.context.store = {
+    deleteMsg: async (chat, message) => {
+        await bot.telegram.deleteMessage(chat, message);
+    },
     monitorOn: async (ctx) => {
         await users.update({tgId: ctx.chat.id},{$set:{active: true}});
-        await ctx.reply(monitoringLocale.on)
+        const msg = await ctx.reply(monitoringLocale.on);
+        const user = await users.findOne({tgId: ctx.chat.id});
+        if(user.lastMonitMsg){
+            await ctx.store.deleteMsg(msg.chat.id, user.lastMonitMsg);
+        }
+        await users.update({tgId: ctx.chat.id}, {$set:{lastMonitMsg: msg.message_id}});
     },
     monitorOff: async (ctx) => {
         await users.update({tgId: ctx.chat.id},{$set:{active: false}});
-        await ctx.reply(monitoringLocale.off)
+        const msg = await ctx.reply(monitoringLocale.off);
+        const user = await users.findOne({tgId: ctx.chat.id});
+        if(user.lastMonitMsg){
+            await ctx.store.deleteMsg(msg.chat.id, user.lastMonitMsg);
+        }
+        await users.update({tgId: ctx.chat.id}, {$set:{lastMonitMsg: msg.message_id}});
     },
 }
 
@@ -31,7 +44,16 @@ bot.command('off', (ctx => ctx.store.monitorOff(ctx)))
 bot.use(session())
 bot.use(async (ctx, next) => {
     const user = await users.findOne({tgId: ctx.chat.id});
-    if (!user) {await users.insert({tgId: ctx.chat.id, favouriteStations:[], active: false, lastMsg: null});}
+    if (!user) {
+        await users.insert({
+            tgId: ctx.chat.id,
+            favouriteStations: [],
+            active: false,
+            lastMsg: null,
+            lastMonitMsg: null,
+            lastMenuMsg: null,
+        });
+    }
     return next();
 });
 bot.use(stage.middleware())
