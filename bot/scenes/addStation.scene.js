@@ -18,7 +18,7 @@ addStationScene.action('exit', (ctx => {
     ctx.scene.enter('mainMenu');
 }))
 addStationScene.use((async (ctx) => {
-    if (parseInt(ctx.update.message.text, 10) <= 10000) {
+    if (ctx.update.message && parseInt(ctx.update.message.text, 10) <= 10000) {
         let stationId = ctx.update.message.text.padStart(4, '0');
         const user = await users.findOne({tgId: ctx.chat.id});
         if (!user.favouriteStations.includes(stationId)) {

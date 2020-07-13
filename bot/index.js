@@ -16,14 +16,20 @@ console.log('Bot started')
 
 bot.context.store = {
     deleteMsg: async (chat, message) => {
-        await bot.telegram.deleteMessage(chat, message);
+        bot.telegram.deleteMessage(chat, message)
+            .catch((e) => {
+                console.error(e)
+            });
     },
     monitorOn: async (ctx) => {
         await users.update({tgId: ctx.chat.id},{$set:{active: true}});
         const msg = await ctx.reply(monitoringLocale.on);
         const user = await users.findOne({tgId: ctx.chat.id});
         if(user.lastMonitMsg){
-            await ctx.store.deleteMsg(msg.chat.id, user.lastMonitMsg);
+            ctx.store.deleteMsg(msg.chat.id, user.lastMonitMsg)
+                .catch((e) => {
+                    console.error(e)
+                });
         }
         await users.update({tgId: ctx.chat.id}, {$set:{lastMonitMsg: msg.message_id}});
     },
@@ -32,7 +38,10 @@ bot.context.store = {
         const msg = await ctx.reply(monitoringLocale.off);
         const user = await users.findOne({tgId: ctx.chat.id});
         if(user.lastMonitMsg){
-            await ctx.store.deleteMsg(msg.chat.id, user.lastMonitMsg);
+            ctx.store.deleteMsg(msg.chat.id, user.lastMonitMsg)
+                .catch((e) => {
+                    console.error(e)
+                });
         }
         await users.update({tgId: ctx.chat.id}, {$set:{lastMonitMsg: msg.message_id}});
     },
